@@ -3,23 +3,20 @@
 layout: home
 
 hero:
-  name: "Ai Agent Example"
-  text: "智能体（ai agent）开发的相关知识与代码示例"
-  tagline: My great project tagline
+  name: "Ai Agent"
+  text: "智能体开发的相关知识与代码示例"
+  tagline: 
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: AI核心概念
+      link: /guide/concepts
+#    - theme: alt
+#      text: API Examples
+#      link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 📄
+    title: AI核心概念
+    details: Ai智能体开发的核心概念
 ---
 

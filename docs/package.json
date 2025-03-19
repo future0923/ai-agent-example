@@ -1,4 +1,5 @@
 {
+  "name": "ai-agent-example",
   "devDependencies": {
     "vitepress": "^1.6.3"
   },
@@ -6,5 +7,9 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "medium-zoom": "^1.1.0",
+    "vue": "^3.5.12"
   }
 }

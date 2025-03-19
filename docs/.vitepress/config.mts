@@ -1,28 +1,30 @@
 import { defineConfig } from 'vitepress'
 
+import { search , zh } from "./locales/zh"
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Ai Agent Example",
-  description: "智能体（ai agent）开发的相关知识与代码示例",
+  sitemap: {
+    hostname: 'https://ai.debugtools.cc',
+  },
+  lastUpdated: true,
+  locales: {
+    root: {
+      label: '简体中文',
+      ...zh
+    },
+  },
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
-    ],
-
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'Q3PQ9B9Z5C',
+        apiKey: 'c1efd92fbc0ff7c6829d99c17a7f9926',
+        indexName: 'debug-tools',
+        locales: {
+          ...search,
+        }
       }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+    },
   }
 })

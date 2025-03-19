@@ -1,0 +1,7 @@
+### Vuejs template
+# Recommended template: Node.gitignore
+
+node_modules/
+.vitepress/dist/
+.vitepress/cache/
+

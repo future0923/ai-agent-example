@@ -84,6 +84,7 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'AI核心概念', link: 'concepts'},
+        {text: 'Spring AI', link: 'spring-ai'},
       ]
     },
   ]

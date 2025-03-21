@@ -18,9 +18,9 @@ export default defineConfig({
     search: {
       provider: 'algolia',
       options: {
-        appId: 'Q3PQ9B9Z5C',
-        apiKey: 'c1efd92fbc0ff7c6829d99c17a7f9926',
-        indexName: 'debug-tools',
+        appId: '1E20LXYQNL',
+        apiKey: '995870160d333576ea6b4b8ef45bedeb',
+        indexName: 'ai-debug-tools',
         locales: {
           ...search,
         }

@@ -8,7 +8,7 @@ AI 模型是旨在处理和生成信息的算法，通常模仿人类的认知�
 
 下表根据输入和输出类型对几个模型进行了分类：
 
-![spring-ai-concepts-model-types](/images/O1CN01otCVsl22MbQzFKYzJ.png){v-zoom}
+![spring-ai-concepts-model-types](/images/O1CN01otCVsl22MbQzFKYzJ.png){v-zoom}{loading="lazy"}
 
 像GPT这样的模型与众不同的是它们的预训练性质，如GPT-聊天生成预训练转换器中的“P”所示。这种预训练特征将人工智能转变为不需要广泛机器学习或模型训练背景的通用开发工具。
 
@@ -40,7 +40,7 @@ API通常通过向AI模型发送提示或部分对话来工作，然后AI模型�
 
 审核模型（Moderation Models）是一类专门用于内容审核（Content Moderation）的人工智能模型，主要用于检测、过滤和分类不适当的文本、图像、音频或视频内容。这些模型通常被用于社交媒体、在线论坛、即时通讯应用、电子商务平台等，以确保用户生成内容（UGC）符合平台规范，避免违规内容传播。
 
-## 二、提示（Prompt）
+## 二、提示（Prompt）{#prompt}
 
 Prompt作为语言基础输入的基础，指导AI模型生成特定的输出。对于熟悉ChatGPT的人来说，Prompt似乎只是输入到对话框中的文本，然后发送到API。然而，它的内涵远不止于此。在许多AI模型中，Prompt的文本不仅仅是一个简单的字符串。
 
@@ -84,7 +84,7 @@ Prompt 中的主要角色（Role）包括：
 
 通过计算两个文本片段的向量表示之间的数值距离，应用程序可以确定用于生成嵌入向量的对象之间的相似性。
 
-![spring-ai-embeddings](/images/O1CN01EnE3i61j2vin5eTGV.png){v-zoom}
+![spring-ai-embeddings](/images/O1CN01EnE3i61j2vin5eTGV.png){v-zoom}{loading="lazy"}
 
 作为一名探索人工智能的Java开发者，理解这些向量表示背后的复杂数学理论或具体实现并不是必需的。对它们在人工智能系统中的作用和功能有基本的了解就足够了，尤其是在将人工智能功能集成到您的应用程序中时。
 
@@ -106,7 +106,7 @@ token是 AI 模型工作原理的基石。输入时，模型将单词转换为to
 
 在英语中，一个token大约对应一个单词的 75%。作为参考，莎士比亚的全集总共约 90 万个单词，翻译过来大约有 120 万个token。
 
-![spring-ai-concepts-tokens](/images/O1CN01ciNztT1nJCFhQodzH.png){v-zoom}
+![spring-ai-concepts-tokens](/images/O1CN01ciNztT1nJCFhQodzH.png){v-zoom}{loading="lazy"}
 
 也许更重要的是 “token = 金钱”。在托管 AI 模型的背景下，您的费用由使用的token数量决定。输入和输出都会影响总token数量。
 
@@ -122,7 +122,7 @@ token是 AI 模型工作原理的基石。输入时，模型将单词转换为to
 
 这种复杂性导致了一个专门领域的出现，涉及创建 Prompt 以产生预期的输出，然后将生成的简单字符串转换为可用于应用程序集成的数据结构。
 
-![结构化输出转换器架构](/images/O1CN01lqCPAC1Xbwc1MfYv7.png){v-zoom}
+![结构化输出转换器架构](/images/O1CN01lqCPAC1Xbwc1MfYv7.png){v-zoom}{loading="lazy"}
 
 结构化输出转换采用精心设计的提示，通常需要与模型进行多次交互才能实现所需的格式。如果您想从 LLM 接收结构化输出，Structured Output 可以将返回类型从 String 更改为其他类型。
 
@@ -139,7 +139,7 @@ LLM 生成结构化输出的能力对于依赖可靠解析输出值的下游应�
 - `Fine Tuning` 微调：这种传统的机器学习技术涉及定制模型并更改其内部权重。然而，即使对于机器学习专家来说，这是一个具有挑战性的过程，而且由于 GPT 等模型的大小，它极其耗费资源。此外，有些模型可能不提供此选项。
 - `Prompt Stuffing` 提示词填充：一种更实用的替代方案是将您的数据嵌入到提供给模型的提示中。考虑到模型的令牌限制，我们需要具备过滤相关数据的能力，并将过滤出的数据填充到在模型交互的上下文窗口中，这种方法俗称“提示词填充”，也称为 `检索增强生成 (RAG)`实现解决方案。
 
-![prompt-stuffing](/images/O1CN01hRUT291k1O09cdQEU.png){v-zoom}
+![prompt-stuffing](/images/O1CN01hRUT291k1O09cdQEU.png){v-zoom}{loading="lazy"}
 
 - `Function Calling` 函数调用：此技术允许注册自定义的用户函数，将大型语言模型连接到外部系统的 API。允许大型语言模型（LLM）在必要时调用一个或多个可用的工具，这些工具通常由开发者定义。工具可以是任何东西：网页搜索、对外部 API 的调用，或特定代码的执行等。LLM 本身不能实际调用工具；相反，它们会在响应中表达调用特定工具的意图（而不是以纯文本回应）。然后，我们应用程序应该执行这个工具，并报告工具执行的结果给模型。
 - `Model Context Protocol(MCP)` [模型上下文协议](https://modelcontextprotocol.io)：MCP是一个开放协议，它规范了应用程序如何向大型语言模型（LLM）提供上下文。
@@ -174,7 +174,7 @@ RAG（Retrieval Augmented Generation，检索增强生成）是一种结合信�
 
 RAG 的下一个阶段是处理用户输入。当用户的问题需要由 AI 模型回答时，问题和所有“类似”的文档片段都会被放入发送给 AI 模型的提示中。这就是使用矢量数据库的原因，它非常擅长查找具有一定相似度的“类似”内容。
 
-![Spring AI RAG](/images/O1CN01zEQSHu1sQ8KTQSA2E.png){v-zoom}
+![Spring AI RAG](/images/O1CN01zEQSHu1sQ8KTQSA2E.png){v-zoom}{loading="lazy"}
 
 * <a target="_blank" href="https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html">ETL 管道</a> 提供了有关协调从数据源提取数据并将其存储在结构化向量存储中的流程的更多信息，确保在将数据传递给 AI 模型时数据具有最佳的检索格式。
 
@@ -485,7 +485,7 @@ AI助手配置
 
 Function Calling机制解决了这些缺点，它允许您注册自己的函数，以将大型语言模型连接到外部系统的 API。这些系统可以为 LLM 提供实时数据并代表它们执行数据处理操作。
 
-![Spring AI Function Calling](/images/O1CN01kiQh6L1hnWmm5gCAW.png){v-zoom}
+![Spring AI Function Calling](/images/O1CN01kiQh6L1hnWmm5gCAW.png){v-zoom}{loading="lazy"}
 
 * （1）执行聊天请求并发送函数定义信息。后者提供`name`（`description`例如，解释模型何时应调用该函数）和`input parameters`（例如，函数的输入参数模式）。
 * （2）当模型决定调用该函数时，它将使用输入参数调用该函数，并将输出返回给模型。
@@ -507,9 +507,9 @@ Function Calling机制解决了这些缺点，它允许您注册自己的函数�
 
 在其核心，MCP遵循客户端-服务器架构，其中主机应用程序可以连接到多个服务器：
 
-![mcp.png](/images/dsadsdadwdwqsadsdas.png){v-zoom}
+![mcp.png](/images/dsadsdadwdwqsadsdas.png){v-zoom}{loading="lazy"}
 
-![java-mcp.png](/images/jdioasjfwqfncasdwasf.png){v-zoom}
+![java-mcp.png](/images/jdioasjfwqfncasdwasf.png){v-zoom}{loading="lazy"}
 
 - **MCP主机**：希望通过MCP访问数据的Claude Desktop、IDE或AI工具等程序
 - **MCP客户端**：与服务器保持1:1连接的协议客户端

@@ -74,6 +74,43 @@ public interface EmbeddingModel extends Model<EmbeddingRequest, EmbeddingRespons
 }
 ```
 
+### EmbeddingOptions
+
+Embedding模型请求时可以通过实现EmbeddingOptions携带参数并扩展更多的参数。getDimensions返回的向量的维度数参数非常重要。
+
+```java
+public interface EmbeddingOptions extends ModelOptions {
+
+    @Nullable
+    String getModel();
+
+    /**
+     * 向量的维度数，即每个生成的向量有多少个数值组成。
+     */
+    @Nullable
+    Integer getDimensions();
+
+}
+```
+
+**什么是 dimensions？**
+- dimensions 指定了生成的嵌入向量的大小（向量的维度数）。
+- 举个例子，如果设置 dimensions = 128，那么每个文本（或其他输入）将被转化为一个包含 128 个浮点数的向量。
+
+**为什么需要设置 dimensions？**
+- 维度越高，理论上可以承载更丰富的语义信息，但也更占用内存和计算资源。
+- 维度越低，效率更高，但可能损失一些表达能力。
+
+**设置多少合适？**
+
+| 使用场景             | 推荐维度                                     |
+|------------------|------------------------------------------|
+| 简单文本搜索 / 分类      | 128 / 256                                |
+| 高性能语义搜索          | 512 / 768                                |
+| 精准匹配 / 多语言支持     | 1024+                                    |
+| OpenAI Embedding | 固定维度，比如 text-embedding-ada-002 输出 1536 维 |
+
+
 ### EmbeddingRequest
 
 EmbeddingRequest 是一种 ModelRequest，它接受文本对象列表和可选的Embedding请求选项。以下代码片段简要地显示了 EmbeddingRequest 类，省略了构造函数和其他工具方法：

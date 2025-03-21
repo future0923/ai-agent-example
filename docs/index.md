@@ -18,5 +18,10 @@ features:
   - icon: 📄
     title: AI核心概念
     details: Ai智能体开发的核心概念
+    link: /guide/concepts
+  - icon: 📚
+    title: SpringAI教程
+    details: 使用 SpringAI 与 SpringAiAlibaba 代码示例
+    link: /spring/concepts
 ---
 

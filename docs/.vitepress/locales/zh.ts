@@ -52,6 +52,10 @@ export const zh = defineConfig({
         base: '/guide/',
         items: sidebarGuide()
       },
+      '/spring': {
+        base: '/spring/',
+        items: sidebarSpring()
+      },
     },
     socialLinks: [
       {icon: 'github', link: 'https://github.com/future0923/ai-agent-example'}
@@ -71,6 +75,11 @@ function nav(): DefaultTheme.NavItem[] {
       activeMatch: '/guide/'
     },
     {
+      text: 'SpringAI',
+      link: '/spring/concepts',
+      activeMatch: '/spring/'
+    },
+    {
       text: 'DebugTools',
       link: 'https://debug-tools.cc/zh',
     },
@@ -84,7 +93,26 @@ function sidebarGuide(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'AI核心概念', link: 'concepts'},
-        {text: 'Spring AI', link: 'spring-ai'},
+      ]
+    },
+  ]
+}
+
+function sidebarSpring(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '概览',
+      collapsed: false,
+      items: [
+        {text: 'Spring AI', link: 'concepts'},
+      ]
+    },
+    {
+      text: '教程',
+      collapsed: false,
+      items: [
+        {text: '聊天模型(Chat Model)', link: 'chat-model'},
+        {text: '嵌入模型(Embedding Model)', link: 'embedding-model'},
       ]
     },
   ]

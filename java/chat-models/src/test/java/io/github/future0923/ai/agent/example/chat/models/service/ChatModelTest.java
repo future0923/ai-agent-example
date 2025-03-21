@@ -13,14 +13,12 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 聊天模型{@link ChatModel}示例
  *
  * @author future0923
  */
-
 public class ChatModelTest extends AbstractChatModelsApplicationTest {
 
     /**
@@ -29,7 +27,6 @@ public class ChatModelTest extends AbstractChatModelsApplicationTest {
      */
     @Autowired
     private ChatModel chatModel;
-
 
     /**
      * 传入String类型
@@ -50,7 +47,7 @@ public class ChatModelTest extends AbstractChatModelsApplicationTest {
      * <li>{@link ToolResponseMessage}工具详细</li>
      * </ul>
      */
-    @RequestMapping("/message")
+    @Test
     public void chatCallMessage() {
         String message = "您好";
         String call = chatModel.call(new UserMessage(message));
@@ -60,7 +57,7 @@ public class ChatModelTest extends AbstractChatModelsApplicationTest {
     /**
      * 传入{@link Prompt}类型，可以将多个消息类型格式化为Prompt对象，具体查看构造函数
      */
-    @RequestMapping("/prompt")
+    @Test
     public void chatCallPrompt() {
         String prompt = "您好";
         ChatResponse response = chatModel.call(new Prompt(prompt));

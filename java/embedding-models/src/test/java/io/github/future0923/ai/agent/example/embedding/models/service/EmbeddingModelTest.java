@@ -21,6 +21,9 @@ import java.util.Map;
  */
 public class EmbeddingModelTest extends AbstractEmbeddingModelApplicationTest {
 
+    /**
+     * SpringAiAlibaba已经自动注入了嵌入模型DashScopeEmbeddingModel
+     */
     @Autowired
     private EmbeddingModel embeddingModel;
 
@@ -63,7 +66,7 @@ public class EmbeddingModelTest extends AbstractEmbeddingModelApplicationTest {
     public void call() {
         // DashScopeEmbeddingOptions 实现了 EmbeddingOptions
         DashScopeEmbeddingOptions embeddingOptions = DashScopeEmbeddingOptions.builder()
-                //.withModel("qwen-max")
+                .withModel("text-embedding-v1")
                 //.withTextType(null")
                 //.withDimensions(null)
                 .build();

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
-
 /**
  * 聊天选项{@link ChatOptions}示例
  *

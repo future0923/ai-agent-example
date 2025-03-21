@@ -270,7 +270,7 @@ public class Prompt implements ModelRequest<List<Message>> {
 
 通过各种构造函数可以创造各种类型的 Prompt，还可以通过 ChatOptions 指定聊参数信息。
 
-## Message
+## Message {#message}
 
 ### 定义
 
@@ -309,7 +309,7 @@ public enum MessageType {
     /**
      * 助手角色（Assistant Role）：AI 对用户输入的响应。这不仅仅是一个答案或反应，它对于保持对话的流畅性至关重要。通过跟踪 AI 之前的响应（其“助手角色”消息），系统可确保连贯且上下文相关的交互。助手消息也可能包含功能工具调用请求信息。它就像 AI 中的一个特殊功能，在需要执行特定功能（例如计算、获取数据或不仅仅是说话）时使用。
      */
-	  ASSISTANT("assistant"),
+    ASSISTANT("assistant"),
 
     /**
      * 系统角色（System Role）：指导 AI 的行为和响应方式，设置 AI 如何解释和回复输入的参数或规则。这类似于在发起对话之前向 AI 提供说明。
@@ -319,7 +319,7 @@ public enum MessageType {
     /**
      * 工具/功能角色（Tool/Function Role）：工具/功能角色专注于响应工具调用助手消息返回附加信息。
      */
-	  TOOL("tool");
+    TOOL("tool");
 
 }
 ```
@@ -428,7 +428,7 @@ public class MessageTest extends AbstractChatModelsApplicationTest {
 }
 ```
 
-## ChatOptions
+## ChatOptions {#chatoptions}
 
 ### 定义
 

@@ -23,7 +23,8 @@
 
     <modules>
         <module>chat-models</module>
-        <module>embedding-models</module>
+        <module>embedding-models</module><module>function-calling</module>
+        <module>chat-client</module>
     </modules>
 
     <scm>

@@ -25,6 +25,7 @@
         <module>chat-models</module>
         <module>embedding-models</module><module>function-calling</module>
         <module>chat-client</module>
+        <module>chat-memory</module>
     </modules>
 
     <scm>
@@ -113,6 +114,11 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+        </repository>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
         </repository>
     </repositories>
 </project>

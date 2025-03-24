@@ -18,11 +18,11 @@ import reactor.test.StepVerifier;
 import java.time.LocalDate;
 
 /**
- * ChatClientBuilder构建的ChatClient可以设置公共参数，每次请求都会生效
+ * ChatClient请求时设置参数
  *
  * @author future0923
  */
-public class ChatClientBuilderTest extends AbstractChatClientApplicationTest {
+public class ChatClientTest extends AbstractChatClientApplicationTest {
 
     @Autowired
     private ChatClient.Builder builder;
@@ -35,10 +35,11 @@ public class ChatClientBuilderTest extends AbstractChatClientApplicationTest {
 
     @Test
     public void chat() {
-        // 可以使用Bean管理ChatClient
-        ChatClient client = builder
+        ChatClient client = builder.build();
+        Flux<String> flux = client
+                .prompt()
                 // 携带的默认系统角色信息
-                .defaultSystem("""
+                .system("""
                         # 角色
                         你是一个旅游小助手，可以帮助取消机票预订。
                         ## 技能
@@ -49,9 +50,10 @@ public class ChatClientBuilderTest extends AbstractChatClientApplicationTest {
                         - 仅处理与旅游信息相关的内容，拒绝回答与AI选房无关的任何话题。
                         """)
                 // 填充 PromptTemplate 参数
-                .defaultSystem(promptSystemSpec -> promptSystemSpec.param("current_date", LocalDate.now().toString()))
+                .system(promptSystemSpec -> promptSystemSpec.param("current_date", LocalDate.now().toString()))
+                .user("帮我取消预订，张三 101，并告诉我费用是多少")
                 // 添加 Advisor
-                .defaultAdvisors(
+                .advisors(
                         // 内存聊天记忆
                         new PromptChatMemoryAdvisor(chatMemory),
                         // 日志打印
@@ -59,23 +61,17 @@ public class ChatClientBuilderTest extends AbstractChatClientApplicationTest {
                         // 向量信息
                         new QuestionAnswerAdvisor(vectorStore, SearchRequest.builder().build())
                 )
-                // 设置参数
-                .defaultOptions(
-                        DashScopeChatOptions.builder()
-                                .withTopP(0.7)
-                                .build()
-                )
-                // 传递 Tool 只简单用一下，后面有详细的 Tools 使用.
-                // BookingTools#cancelBooking()
-                .defaultTools("cancelBooking")
-                .build();
-        Flux<String> flux = client
-                .prompt()
-                .user("帮我取消预订，张三 101，并告诉我费用是多少")
+                // 配置内存聊天记录的参数
                 .advisors(advisorSpec -> advisorSpec.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, 1))
                 .advisors(advisorSpec -> advisorSpec.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY, AbstractChatMemoryAdvisor.DEFAULT_CHAT_MEMORY_RESPONSE_SIZE))
                 // 向量查询需要对接向量模型才能更好搜索
                 //.advisors(advisorSpec -> new QuestionAnswerAdvisor(vectorStore, SearchRequest.builder().query(message).build()))
+                .options(DashScopeChatOptions.builder()
+                        .withTopP(0.7)
+                        .build())
+                // 传递 Tool 只简单用一下，后面有详细的 Tools 使用.
+                // BookingTools#cancelBooking()
+                .tools("cancelBooking")
                 .stream()
                 .content();
         StepVerifier.create(flux)

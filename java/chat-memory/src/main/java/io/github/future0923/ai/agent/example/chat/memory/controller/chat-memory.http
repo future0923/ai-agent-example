@@ -1,18 +1,18 @@
 
 ### Memory Chat Memory 1
-GET http://127.0.0.1:8080/chatMemory/memory?prompt="我是张三"&chatId=100001
+GET http://127.0.0.1:8080/chatMemory/memory?prompt=我是张三&chatId=100001
 
 ### Memory Chat Memory 2
-GET http://127.0.0.1:8080/chatMemory/memory?prompt="我是谁"&chatId=100001
+GET http://127.0.0.1:8080/chatMemory/memory?prompt=我是谁&chatId=100001
 
 ### MySQL Chat Memory 1
 GET http://127.0.0.1:8080/chatMemory/mysql?prompt=我是张三&chatId=100001
 
 ### MySQL Chat Memory 2
-GET http://127.0.0.1:8080/chatMemory/mysql?prompt="我是谁"&chatId=100001
+GET http://127.0.0.1:8080/chatMemory/mysql?prompt=我是谁&chatId=100001
 
 ### Redis Chat Memory 1
-GET http://127.0.0.1:8080/chatMemory/redis?prompt="我是张三"&chatId=100001
+GET http://127.0.0.1:8080/chatMemory/redis?prompt=我是张三&chatId=100001
 
 ### Redis Chat Memory 2
-GET http://127.0.0.1:8080/chatMemory/redis?prompt="我是谁"&chatId=100001
+GET http://127.0.0.1:8080/chatMemory/redis?prompt=我是谁&chatId=100001

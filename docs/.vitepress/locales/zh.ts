@@ -114,6 +114,7 @@ function sidebarSpring(): DefaultTheme.SidebarItem[] {
         {text: '聊天模型(Chat Model)', link: 'chat-model'},
         {text: '嵌入模型(Embedding Model)', link: 'embedding-model'},
         {text: 'Chat Client', link: 'chat-client'},
+        {text: '工具(Tool)/功能调用(Function Calling)', link: 'function-calling'},
       ]
     },
   ]

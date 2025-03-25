@@ -1,0 +1,13 @@
+version: '3'
+services:
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-xe
+    environment:
+      - ORACLE_PASSWORD=123456
+      - APP_USER=root
+      - APP_USER_PASSWORD=123456
+      - ORACLE_PDB=ORCL
+    ports:
+      - "1521:1521"
+      - "5500:5500"

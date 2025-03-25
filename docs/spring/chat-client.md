@@ -459,7 +459,7 @@ public interface StreamAroundAdvisorChain {
 
 可以查看这些源码来了解如何实现自己的Advisor。
 
-**示例：**
+### 示例
 
 实现一个简单的日志记录顾问 SimpleLoggerAdvisor，它在调用链中的下一个顾问之前记录AdvisedRequest，在调用之后记录AdvisedResponse。
 ```java

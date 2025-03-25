@@ -27,6 +27,7 @@
         <module>chat-client</module>
         <module>chat-memory</module>
         <module>structured-output</module>
+        <module>vector-store</module>
     </modules>
 
     <scm>

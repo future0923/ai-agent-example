@@ -129,7 +129,7 @@ public class DateTimeToolsTest {
 
 Spring AI通过一组灵活的抽象支持工具调用，这些抽象允许您以一致的方式定义、解析和执行工具。Spring AI中工具调用的主要概念和组件如下。
 
- ![hwidhwiuahduiwhfnasd.png](/images/hwidhwiuahduiwhfnasd.png)
+ ![hwidhwiuahduiwhfnasd.png](/images/hwidhwiuahduiwhfnasd.png){v-zoom}{loading="lazy"}
 
 1. 当我们想让一个工具对模型可用时，我们在聊天请求中包含它的定义，每个工具定义包括一个名称、一个描述和输入参数的schema。
 2. 当模型决定调用一个工具时，它会发送一个响应，其中包含工具名称和按照定义的schema建模的输入参数。
@@ -775,7 +775,7 @@ public interface ToolCallResultConverter {
 
 Spring AI支持通过ToolContextAPI向工具传递额外的上下文信息。此特征允许您提供额外的、用户提供的数据，这些数据可以与AI模型传递的工具参数一起在工具执行中使用。
 
-![jfoeaspsdwfasdas.png](/images/jfoeaspsdwfasdas.png)
+![jfoeaspsdwfasdas.png](/images/jfoeaspsdwfasdas.png){v-zoom}{loading="lazy"}
 
 自定义 ToolContextTools 使用 ToolContext 来实现。
 
@@ -856,7 +856,7 @@ public class ToolContextToolsTest extends AbstractFunctionCallingApplicationTest
 
 每个ToolCallback实现可以定义工具调用的结果是应该直接返回给调用方还是发送回模型。默认情况下，结果被发送回模型。但是您可以每个工具更改这种行为。
 
-![jowifqjnsfokwds.png](/images/jowifqjnsfokwds.png)
+![jowifqjnsfokwds.png](/images/jowifqjnsfokwds.png){v-zoom}{loading="lazy"}
 
 1. 当我们想要使一个工具对模型可用时，我们将其定义包含在聊天请求中，如果我们希望工具执行的结果直接返回给调用方，我们将returnDirect属性设置为true。
 2. 当模型决定调用一个工具时，它会发送一个响应，其中包含工具名称和按照定义的schema建模的输入参数。

@@ -4,7 +4,7 @@ spring:
   ai:
     dashscope:
       # 读取环境变量 AI_API_KEY
-      api-key: sk-45bfe78c7beb48ddb4c75fbc9d401bbb
+      api-key: ${AI_API_KEY}
       chat:
         options:
           model: qwen-max

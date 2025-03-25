@@ -328,7 +328,7 @@ Spring AI Advisors API提供了一种灵活而强大的方式来拦截、修改�
 
 API由 `CallAroundAdvisor` 和 `CallAroundAdvisorChain`（用于非流场景）以及 `StreamAroundAdvisor` 和 `StreamAroundAdvisorChain`（用于流场景）组成。它还包括表示未密封的提示请求的 `AdvisedRequest`、表示聊天完成响应的 `AdvisedResponse`。两者都持有一个advise-context，用于在顾问链中共享状态。
 
-![wjfiqsvfjsadas.png](/images/wjfiqsvfjsadas.png)
+![wjfiqsvfjsadas.png](/images/wjfiqsvfjsadas.png){v-zoom}{loading="lazy"}
 
 `nextAroundCall()` 和 `nextAroundStream()` 是关键的顾问方法，通常执行诸如检查未密封的提示数据、自定义和扩充提示数据、调用顾问链中的下一个实体、可选地阻止请求、检查聊天完成响应以及抛出异常以指示处理错误等操作。
 
@@ -338,7 +338,7 @@ API由 `CallAroundAdvisor` 和 `CallAroundAdvisorChain`（用于非流场景）�
 
 **AdvisorChain 与 LLM 交互**：
 
-![hwfiqbwdhqwodas.png](/images/hwfiqbwdhqwodas.png)
+![hwfiqbwdhqwodas.png](/images/hwfiqbwdhqwodas.png){v-zoom}{loading="lazy"}
 
 1. Spring AI框架从用户的Prompt创建一个AdvisedRequest以及一个空的AdvisorContext对象。
 2. 链中的每个顾问处理请求，可能会修改它。或者，它可以选择通过不调用来屏蔽请求以调起下一个实体。在后一种情况下，顾问负责填写响应。

@@ -27,4 +27,4 @@ Spring AI项目旨在简化应用程序的开发，这些应用程序包含人�
 - [嵌入模型(Embedding Model)](embedding-model)
 - [Chat Client](chat-client)
 - [工具(Tool)/功能调用(Function Calling)](function-calling)
-- [结构化输出(structured-output)](structured-output)
+- [结构化输出(Structured Output)](structured-output)

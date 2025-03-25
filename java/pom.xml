@@ -26,6 +26,7 @@
         <module>embedding-models</module><module>function-calling</module>
         <module>chat-client</module>
         <module>chat-memory</module>
+        <module>structured-output</module>
     </modules>
 
     <scm>

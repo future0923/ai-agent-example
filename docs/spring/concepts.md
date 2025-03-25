@@ -23,5 +23,7 @@ Spring AI项目旨在简化应用程序的开发，这些应用程序包含人�
 
 ## 二、Spring 对 AI 的抽象
 
-- [聊天模型](chat-model)
-- [嵌入模型](embedding-model)
+- [聊天模型(Chat Model)](chat-model)
+- [嵌入模型(Embedding Model)](embedding-model)
+- [Chat Client](chat-client)
+- [工具(Tool)/功能调用(Function Calling)](function-calling)

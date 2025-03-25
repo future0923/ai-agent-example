@@ -1,5 +1,7 @@
 # 工具(Tool)/功能调用(Function Calling)
 
+演示[代码](https://github.com/future0923/ai-agent-example/tree/main/java/function-calling) .
+
 ## 简介
 
 **功能调用(Function Calling)已经过时，使用方式改为工具调用(Tool)**。

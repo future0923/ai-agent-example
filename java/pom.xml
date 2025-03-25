@@ -28,6 +28,7 @@
         <module>chat-memory</module>
         <module>structured-output</module>
         <module>vector-store</module>
+        <module>document-retriever</module>
     </modules>
 
     <scm>

@@ -23,9 +23,9 @@ public class DashScopeCloudStoreTest extends DashScopeVectorStoreApplicationTest
     public void test() {
         DashScopeCloudStore dashScopeCloudStore = new DashScopeCloudStore(
                 new DashScopeApi(apiKey),
-                new DashScopeStoreOptions("合众房产通知公告")
+                new DashScopeStoreOptions("二手房信息")
         );
-        List<Document> documents = dashScopeCloudStore.similaritySearch("房客源常见问题解析");
+        List<Document> documents = dashScopeCloudStore.similaritySearch("大经路的房源");
         documents.forEach(System.out::println);
     }
 

@@ -116,6 +116,7 @@ function sidebarSpring(): DefaultTheme.SidebarItem[] {
         {text: 'Chat Client', link: 'chat-client'},
         {text: '工具(Tool)/功能调用(Function Calling)', link: 'function-calling'},
         {text: '结构化输出(Structured Output)', link: 'structured-output'},
+        {text: '文档检索(Document Retriever)', link: 'document-retriever'},
       ]
     },
   ]

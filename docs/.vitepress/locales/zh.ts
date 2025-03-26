@@ -118,6 +118,7 @@ function sidebarSpring(): DefaultTheme.SidebarItem[] {
         {text: '结构化输出(Structured Output)', link: 'structured-output'},
         {text: '文档检索(Document Retriever)', link: 'document-retriever'},
         {text: '向量存储(Vector Store)', link: 'vector-store'},
+        {text: '索引增强生成(RAG)', link: 'rag'},
       ]
     },
   ]

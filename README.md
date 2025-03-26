@@ -18,3 +18,4 @@
 - [结构化输出(Structured Output)](https://ai.debug-tools.cc/spring/structured-output.html)
 - [文档检索(Document Retriever)](https://ai.debug-tools.cc/spring/document-retriever.html)
 - [向量存储(Vector Store)](https://ai.debug-tools.cc/spring/vector-store.html)
+- [索引增强生成(RAG)](https://ai.debug-tools.cc/spring/rag.html)

@@ -311,7 +311,7 @@ public class ChatClientTest extends AbstractChatClientApplicationTest {
 }
 ```
 
-## Advisors
+## Advisors{#advisors}
 
 Spring AI Advisors API提供了一种灵活而强大的方式来拦截、修改和增强Spring应用程序中的AI驱动交互。通过利用Advisors API，开发人员可以创建更复杂、可重用和可维护的AI组件。
 

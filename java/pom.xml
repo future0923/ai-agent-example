@@ -29,6 +29,7 @@
         <module>structured-output</module>
         <module>vector-store</module>
         <module>document-retriever</module>
+        <module>rag</module>
     </modules>
 
     <scm>

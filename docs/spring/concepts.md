@@ -29,3 +29,4 @@ Spring AI项目旨在简化应用程序的开发，这些应用程序包含人�
 - [工具(Tool)/功能调用(Function Calling)](function-calling)
 - [结构化输出(Structured Output)](structured-output)
 - [文档检索(Document Retriever)](document-retriever)
+- [向量存储(Vector Store)](vector-store)

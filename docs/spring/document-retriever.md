@@ -205,5 +205,10 @@ public class DocumentRetrieverTest {
 
 **使用方向：**
 - 文档检索一般要结合[向量存储](vector-store.md)进行使用，提前将Document信息存储在向量存储中，然后进行检索。
+- Document信息通过[ETL Pipeline](etl-pipeline)可以对Document进行操作，如：
+  - 实现[DocumentReader](etl-pipeline#document-reader)可以对Document进行读取，提取需要的数据。
+  - 实现[DocumentTransformer](etl-pipeline#document-transformer)对Document进行转换，将提取到的数据转换为特定的格式。
+  - 实现[DocumentWriter](etl-pipeline#document-writer)对Document进行写入，将提取到的数据写入到数据库中。
 - 搜索提取的Document信息可以在程序中使用，比如元数据中增加数据id信息，查询数据库后进行操作。
 - 将Document信息利用RAG传入大模型后续使用。
+

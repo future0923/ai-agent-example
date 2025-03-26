@@ -5,16 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>io.github.future0923</groupId>
-        <artifactId>vector-store</artifactId>
+        <artifactId>vector-store-spring-ai</artifactId>
         <version>${revision}</version>
     </parent>
 
-    <artifactId>vector-store-spring-ai</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>vector-store-spring-ai-elasticsearch</module>
-        <module>vector-store-spring-ai-memory</module>
-    </modules>
+    <artifactId>vector-store-spring-ai-elasticsearch</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

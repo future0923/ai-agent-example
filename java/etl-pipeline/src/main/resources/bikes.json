@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "brand": "Trek",
+    "description": "A high-performance mountain bike for trail riding."
+  },
+  {
+    "id": 2,
+    "brand": "Cannondale",
+    "description": "An aerodynamic road bike for racing enthusiasts."
+  }
+]

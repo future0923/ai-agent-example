@@ -905,3 +905,7 @@ public class DefaultToolExecutionExceptionProcessor implements ToolExecutionExce
 ```
 
 默认ToolCallingManager（DefaultToolCallingManager）在内部使用该ToolExecutionExceptionProcessor来处理工具执行期间的异常。
+
+## 社区
+
+Spring AI Alibaba 社区提供了很多函数工具，[源码](https://github.com/alibaba/spring-ai-alibaba/tree/main/community/tool-calls)。

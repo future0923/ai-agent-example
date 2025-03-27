@@ -117,6 +117,7 @@ function sidebarSpring(): DefaultTheme.SidebarItem[] {
         {text: '工具(Tool)/功能调用(Function Calling)', link: 'function-calling'},
         {text: '结构化输出(Structured Output)', link: 'structured-output'},
         {text: '文档检索(Document Retriever)', link: 'document-retriever'},
+        {text: 'ETL管道(ETL Pipeline)', link: 'etl-pipeline'},
         {text: '向量存储(Vector Store)', link: 'vector-store'},
         {text: '索引增强生成(RAG)', link: 'rag'},
       ]

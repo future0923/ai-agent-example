@@ -30,6 +30,7 @@
         <module>vector-store</module>
         <module>document-retriever</module>
         <module>rag</module>
+        <module>etl-pipeline</module>
     </modules>
 
     <scm>

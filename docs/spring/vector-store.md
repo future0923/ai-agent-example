@@ -388,4 +388,6 @@ public void deleteFilter() {
 
 ## 其他实现
 
-这里只使用的内存向量存储，Spring AI 提供了很多[向量存储](https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs.html)的实现。
+这里只使用的内存向量存储，
+- Spring AI 提供了很多[向量存储](https://docs.spring.io/spring-ai/reference/1.0/api/vectordbs.html)的实现。
+- Spring AI Alibaba 社区也提供了很多，[源码](https://github.com/alibaba/spring-ai-alibaba/tree/main/community/vector-stores)。

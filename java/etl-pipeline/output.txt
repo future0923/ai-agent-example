@@ -1,0 +1,9 @@
+
+### Doc: 0, pages:[null,null]
+charset: UTF-8
+filename: text-source.txt
+source: text-source.txt
+
+Spring AI是AI工程的应用框架，其目标是将Spring生态系统设计原则（如可移植性和模块化设计）应用于AI领域，并将POJO作为应用程序的构建块推广到AI领域。
+
+该项目从著名的Python项目中汲取灵感，如 LangChain和LlamaIndex，但Spring AI不是这些项目的直接复制。该项目的创建是基于这样一种信念，即下一波生成性AI应用程序不仅面向Python开发人员，而且将在许多编程语言中无处不在。

@@ -20,3 +20,5 @@
 - [ETL管道(ETL Pipeline)](https://ai.debug-tools.cc/spring/etl-pipeline.html)
 - [向量存储(Vector Store)](https://ai.debug-tools.cc/spring/vector-store.html)
 - [索引增强生成(RAG)](https://ai.debug-tools.cc/spring/rag.html)
+- [聊天记忆(Chat Memory)](https://ai.debug-tools.cc/spring/chat-memory.html)
+- [模型上下文协议(MCP)](https://ai.debug-tools.cc/spring/mcp.html)

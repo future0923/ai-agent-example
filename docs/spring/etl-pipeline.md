@@ -1,5 +1,7 @@
 # ETL管道(etl-pipeline)
 
+演示[代码](https://github.com/future0923/ai-agent-example/tree/main/java/etl-pipeline/src/test/java/io/github/future0923/ai/agent/example/etl/pipeline/service)
+
 ## 概述
 
 ETL(Extract 抽取, Transform 转换, Load 加载) 是检索增强生成（RAG）使用案例中数据处理的主干。

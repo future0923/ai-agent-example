@@ -252,7 +252,7 @@ public class TranslationQueryTransformerTest extends RagApplicationTest {
 }
 ```
 
-### 上下文感知查询(Context-aware Queries)
+### 上下文感知查询(Context-aware Queries){#context-aware-queries}
 
 [CompressionQueryTransformer](../guide/concepts#context-aware-queries) 在实际对话中，用户的问题往往依赖于之前的对话上下文。`将问题通过上下文解析为明确的问题后发给大模型`。
 

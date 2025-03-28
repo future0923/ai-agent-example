@@ -22,20 +22,15 @@ public class McpClientTest {
                         "-jar",
                         "/Users/weilai/Documents/ai-agent-example/java/mcp/mcp-weather/mcp-weather-stdio-server/target/mcp-weather-stdio-server-1.0.0-SNAPSHOT.jar")
                 .build();
-
         var transport = new StdioClientTransport(stdioParams);
         var client = McpClient.sync(transport).build();
-
         client.initialize();
-
         // List and demonstrate tools
         McpSchema.ListToolsResult toolsList = client.listTools();
-        System.out.println("Available Tools = " + toolsList);
-
-        McpSchema.CallToolResult weatherForcastResult = client.callTool(new McpSchema.CallToolRequest("currentWeather",
+        System.out.println("可用的tools：" + toolsList);
+        McpSchema.CallToolResult result = client.callTool(new McpSchema.CallToolRequest("currentWeather",
                 Map.of("city", "长春")));
-        System.out.println("Weather Forcast: " + weatherForcastResult);
-
+        System.out.println(result);
         client.closeGracefully();
     }
 }

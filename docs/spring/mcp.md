@@ -328,7 +328,6 @@ class SqliteTest extends McpSqliteApplicationTest {
 
 ### 自己开发
 
-
 **Spring AI 客户端 starter**
 - `spring-ai-mcp-client-spring-boot-starter` 提供STDIO和基于HTTP的SSE支持的核心启动器
 - `spring-ai-mcp-client-webflux-spring-boot-starter` 基于WebFlux的SSE传输实现
@@ -339,3 +338,267 @@ class SqliteTest extends McpSqliteApplicationTest {
 - `spring-ai-mcp-server-webflux-spring-boot-starter` 基于WebFlux的SSE传输实现
 
 #### STDIO
+
+引入 server 包
+
+```xml
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-mcp-server-spring-boot-starter</artifactId>
+</dependency>
+```
+
+定义 Tools 功能
+
+```java
+import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author future0923
+ */
+@Service
+public class WeatherTools {
+
+    /**
+     * tool响应
+     */
+    public record WeatherResponse(@ToolParam(description = "城市信息") String city,
+                                  @ToolParam(description = "天气情况") String condition,
+                                  @ToolParam(description = "温度") int temperature) {
+
+    }
+
+    @Tool(description = "获取城市的天气情况")
+    public WeatherResponse currentWeather(@ToolParam(description = "城市信息") String city) {
+        // 模拟天气查询逻辑
+        return new WeatherResponse(city, "晴天", 25);
+    }
+}
+```
+
+注册工具回调
+
+```java
+import io.github.future0923.ai.agent.example.mcp.weather.stdio.server.tools.WeatherTools;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author future0923
+ */
+@Configuration
+public class WeatherConfig {
+
+    /**
+     * 注册工具
+     */
+    @Bean
+    public ToolCallbackProvider toolCallbackProvider(WeatherTools weatherTools) {
+        return MethodToolCallbackProvider.builder().toolObjects(weatherTools).build();
+    }
+}
+```
+
+指定启动配置
+
+```yaml
+spring:
+  main:
+    # stdio 必须配置项
+    web-application-type: none
+    # stdio 必须配置项
+    banner-mode: off
+  ai:
+    mcp:
+      server:
+        name: weather-mcp-server
+        version: 1.0.0
+        type: SYNC
+logging:
+  pattern:
+    # stdio 必须配置项
+    console:
+  file:
+    name: mcp-weather-stdio-server.log
+```
+
+启动 server 可以运行
+
+引入 client 包
+
+```xml
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-mcp-client-spring-boot-starter</artifactId>
+</dependency>
+```
+
+使用 mcp client 连接
+
+```java
+import io.modelcontextprotocol.client.McpClient;
+import io.modelcontextprotocol.client.transport.ServerParameters;
+import io.modelcontextprotocol.client.transport.StdioClientTransport;
+import io.modelcontextprotocol.spec.McpSchema;
+import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
+/**
+ * 使用 modelcontextprotocol client 调用server
+ *
+ * @author future0923
+ */
+public class McpClientTest {
+
+    @Test
+    public void test() {
+        var stdioParams = ServerParameters.builder("java")
+                .args(
+                        "-jar",
+                        "/Users/weilai/Documents/ai-agent-example/java/mcp/mcp-weather/mcp-weather-stdio-server/target/mcp-weather-stdio-server-1.0.0-SNAPSHOT.jar")
+                .build();
+        var transport = new StdioClientTransport(stdioParams);
+        var client = McpClient.sync(transport).build();
+        client.initialize();
+        // List and demonstrate tools
+        McpSchema.ListToolsResult toolsList = client.listTools();
+        System.out.println("可用的tools：" + toolsList);
+        McpSchema.CallToolResult result = client.callTool(new McpSchema.CallToolRequest("currentWeather",
+                Map.of("city", "长春")));
+        System.out.println(result);
+        client.closeGracefully();
+    }
+}
+```
+
+使用 spring ai mcp client 连接
+
+```yaml
+spring:
+  ai:
+    mcp:
+      client:
+        toolcallback:
+          enabled: true
+        stdio:
+          # 指定 MCP Server 配置
+          servers-configuration: classpath:mcp-servers.json
+    dashscope:
+      # 读取环境变量 AI_API_KEY
+      api-key: ${AI_API_KEY}
+      chat:
+        options:
+          model: qwen-max
+    nacos:
+      prompt:
+        template:
+          enabled: true
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG
+```
+
+mcp-servers.json
+
+```json
+{
+  "mcpServers": {
+    "weather-mcp-server": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/Users/weilai/Documents/ai-agent-example/java/mcp/mcp-weather/mcp-weather-stdio-server/target/mcp-weather-stdio-server-1.0.0-SNAPSHOT.jar"
+      ]
+    }
+  }
+}
+```
+
+连接 client 
+
+```java
+import io.github.future0923.ai.agent.example.mcp.weather.stdio.client.StdioClientMcpApplicationTest;
+import io.modelcontextprotocol.client.McpSyncClient;
+import io.modelcontextprotocol.spec.McpSchema;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 通过 spring-ai-mcp-client-spring-boot-starter 调用
+ *
+ * @author future0923
+ */
+public class SpringMcpClientTest extends StdioClientMcpApplicationTest {
+
+    @Autowired
+    private List<McpSyncClient> mcpSyncClients;
+
+    @Test
+    public void test() {
+        for (McpSyncClient mcpSyncClient : mcpSyncClients) {
+            McpSchema.CallToolResult result = mcpSyncClient.callTool(
+                    // 调用mcp server 提供的 currentWeather
+                    new McpSchema.CallToolRequest("currentWeather",
+                    Map.of("city", "长春"))
+            );
+            System.out.println(result);
+        }
+    }
+}
+```
+
+给大模型调用
+
+```java
+import io.github.future0923.ai.agent.example.mcp.weather.stdio.client.StdioClientMcpApplicationTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import reactor.core.publisher.Flux;
+import reactor.test.StepVerifier;
+
+/**
+ * @author future0923
+ */
+public class LLMMcpTest extends StdioClientMcpApplicationTest {
+
+    @Autowired
+    private ToolCallbackProvider toolCallbackProvider;
+
+    @Autowired
+    private ChatClient.Builder chatClientBuilder;
+
+    @Test
+    public void test() {
+        var chatClient = chatClientBuilder
+                .defaultTools(toolCallbackProvider)
+                .build();
+
+        // Question 1
+        String question1 = "长春的天气怎么样？";
+        System.out.println("问: " + question1);
+        System.out.print("答: ");
+        Flux<String> flux1 = chatClient.prompt(question1).stream().content();
+        StepVerifier.create(flux1)
+                .thenConsumeWhile(res -> {
+                    System.out.print(res);
+                    return true;
+                })
+                .verifyComplete();
+    }
+    
+}
+```
+
+#### MVC
+
+#### WebFlux

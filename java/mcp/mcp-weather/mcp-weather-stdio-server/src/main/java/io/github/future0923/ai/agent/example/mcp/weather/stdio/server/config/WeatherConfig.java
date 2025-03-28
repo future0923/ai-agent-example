@@ -12,6 +12,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WeatherConfig {
 
+    /**
+     * 注册工具
+     */
     @Bean
     public ToolCallbackProvider toolCallbackProvider(WeatherTools weatherTools) {
         return MethodToolCallbackProvider.builder().toolObjects(weatherTools).build();

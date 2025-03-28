@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "weather-mcp-server": {
+      "command": "java",
+      "args": [
+        "-jar",
+        "/Users/weilai/Documents/ai-agent-example/java/mcp/mcp-weather/mcp-weather-stdio-server/target/mcp-weather-stdio-server-1.0.0-SNAPSHOT.jar"
+      ]
+    }
+  }
+}

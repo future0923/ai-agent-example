@@ -4,6 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
     <groupId>io.github.future0923</groupId>
     <artifactId>ai-agent-example</artifactId>
     <version>${revision}</version>
@@ -23,7 +30,8 @@
 
     <modules>
         <module>chat-models</module>
-        <module>embedding-models</module><module>function-calling</module>
+        <module>embedding-models</module>
+        <module>function-calling</module>
         <module>chat-client</module>
         <module>chat-memory</module>
         <module>structured-output</module>
@@ -31,6 +39,7 @@
         <module>document-retriever</module>
         <module>rag</module>
         <module>etl-pipeline</module>
+        <module>mcp</module>
     </modules>
 
     <scm>

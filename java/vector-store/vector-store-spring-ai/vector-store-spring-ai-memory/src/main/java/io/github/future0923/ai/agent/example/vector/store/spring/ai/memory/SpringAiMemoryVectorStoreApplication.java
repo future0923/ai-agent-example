@@ -1,5 +1,6 @@
 package io.github.future0923.ai.agent.example.vector.store.spring.ai.memory;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -7,4 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class SpringAiMemoryVectorStoreApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringAiMemoryVectorStoreApplication.class, args);
+    }
 }

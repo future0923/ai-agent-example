@@ -65,4 +65,8 @@ public class FlightBookingService {
         dao.updateById((flightBookings.get(0)));
         return "取消预订成功";
     }
+
+    public FlightBooking bookingsInfo(String bookingNumber) {
+        return dao.selectById(bookingNumber);
+    }
 }

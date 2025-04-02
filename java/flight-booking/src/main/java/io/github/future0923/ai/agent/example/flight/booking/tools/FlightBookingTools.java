@@ -43,4 +43,9 @@ public class FlightBookingTools {
     public String cancelBookings(@ToolParam(description = "预订号") String bookingNumber) {
         return service.cancelBookings(bookingNumber);
     }
+
+    @Tool(description = "根据预定号查旬机票信息")
+    public FlightBooking bookingsInfo(@ToolParam(description = "预订号") String bookingNumber) {
+        return service.bookingsInfo(bookingNumber);
+    }
 }

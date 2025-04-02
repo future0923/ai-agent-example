@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: flight-booking
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.11:3306/flight_booking?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456Aa
+  ai:
+    dashscope:
+      # 读取环境变量 AI_API_KEY
+      api-key: ${AI_API_KEY}
+      chat:
+        options:
+          model: qwen-max
+    nacos:
+      prompt:
+        template:
+          enabled: true
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG

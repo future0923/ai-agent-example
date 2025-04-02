@@ -43,6 +43,7 @@
         <module>open-manus</module>
         <module>web-search</module>
         <module>multimodality</module>
+        <module>flight-booking</module>
     </modules>
 
     <scm>

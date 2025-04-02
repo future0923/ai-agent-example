@@ -42,6 +42,7 @@
         <module>mcp</module>
         <module>open-manus</module>
         <module>web-search</module>
+        <module>multimodality</module>
     </modules>
 
     <scm>

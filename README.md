@@ -22,6 +22,7 @@
 - [索引增强生成(RAG)](https://ai.debug-tools.cc/spring/rag.html)
 - [聊天记忆(Chat Memory)](https://ai.debug-tools.cc/spring/chat-memory.html)
 - [模型上下文协议(MCP)](https://ai.debug-tools.cc/spring/mcp.html)
+- [多模态(Multimodality)](https://ai.debug-tools.cc/spring/multimodality.html)
 
 ## 示例应用
 

@@ -34,3 +34,4 @@ Spring AI项目旨在简化应用程序的开发，这些应用程序包含人�
 - [索引增强生成(RAG)](rag)
 - [聊天记忆(Chat Memory)](chat-memory)
 - [模型上下文协议(MCP)](mcp)
+- [多模态(Multimodality)](multimodality)

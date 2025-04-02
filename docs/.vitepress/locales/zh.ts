@@ -130,7 +130,8 @@ function sidebarSpring(): DefaultTheme.SidebarItem[] {
         {text: '向量存储(Vector Store)', link: 'vector-store'},
         {text: '索引增强生成(RAG)', link: 'rag'},
         {text: '聊天记忆(Chat Memory)', link: 'chat-memory'},
-        {text: '模型上下文协议(MCP)', link: 'mcp'}
+        {text: '模型上下文协议(MCP)', link: 'mcp'},
+        {text: '多模态(Multimodality)', link: 'multimodality'},
       ]
     },
   ]

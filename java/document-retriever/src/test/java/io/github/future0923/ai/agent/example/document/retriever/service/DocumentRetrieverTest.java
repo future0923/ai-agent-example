@@ -3,7 +3,9 @@ package io.github.future0923.ai.agent.example.document.retriever.service;
 import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
 import com.alibaba.cloud.ai.dashscope.rag.DashScopeDocumentRetriever;
 import com.alibaba.cloud.ai.dashscope.rag.DashScopeDocumentRetrieverOptions;
+import com.alibaba.cloud.ai.model.RerankModel;
 import io.github.future0923.ai.agent.example.document.retriever.DocumentRetrieverApplicationTest;
+import io.github.future0923.ai.agent.example.document.retriever.document.ranker.DashScopeDocumentRanker;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.rag.Query;
@@ -18,6 +20,9 @@ public class DocumentRetrieverTest extends DocumentRetrieverApplicationTest {
 
     @Value("${spring.ai.dashscope.api-key}")
     private String apiKey;
+
+    @Autowired
+    private RerankModel rerankModel;
 
     @Test
     public void test() {
@@ -43,15 +48,18 @@ public class DocumentRetrieverTest extends DocumentRetrieverApplicationTest {
                         // 重新排序前N个，重新排序后返回的前N个最佳结果
                         .withRerankTopN(1)
                         .build());
-        List<Document> result = documentRetriever.retrieve(
-                Query.builder()
-                        // 检索的内容
-                        .text("我想找一个君悦豪庭B区1室的房源，面积在60平左右")
-                        // 历史消息
-                        .history(List.of())
-                        // 上下文信息
-                        .context(Map.of())
-                        .build());
+        Query query = Query.builder()
+                // 检索的内容
+                .text("我想找一个君悦豪庭B区1室的房源，面积在60平左右")
+                // 历史消息
+                .history(List.of())
+                // 上下文信息
+                .context(Map.of())
+                .build();
+        List<Document> result = documentRetriever.retrieve(query);
+        // 重排序
+        DashScopeDocumentRanker dashScopeDocumentRanker = new DashScopeDocumentRanker(rerankModel);
+        result = dashScopeDocumentRanker.rank(query, result);
         Document document = result.get(0);
         // 获取元数据信息（提取到的key -> value）
         Map<String, Object> metadata = document.getMetadata();

@@ -21,7 +21,11 @@ features:
     link: /guide/concepts
   - icon: 📚
     title: SpringAI教程
-    details: 使用 SpringAI 与 SpringAiAlibaba 代码示例
+    details: 使用 SpringAI 与 SpringAiAlibaba 代码示例，快速入门
     link: /spring/concepts
+  - icon: 👀
+    title: 示例应用
+    details: 示例应用小demo，帮助理解ai应用开发
+    link: /demo/web-search
 ---
 

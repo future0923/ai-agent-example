@@ -1,6 +1,7 @@
 # 索引增强生成(RAG)
 
-演示[代码](https://github.com/future0923/ai-agent-example/tree/main/java/rag/src/test/java/io/github/future0923/ai/agent/example/rag/service)
+- 演示[代码](https://github.com/future0923/ai-agent-example/tree/main/java/rag/src/test/java/io/github/future0923/ai/agent/example/rag/service)
+- Web Search 应用[源码](https://github.com/future0923/ai-agent-example/tree/main/java/web-search)
 
 ## 简介
 
@@ -111,6 +112,39 @@ String answer = chatClient.prompt()
         .call()
         .content();
 ```
+
+
+## RAG检索步骤
+
+### Pre-Retrieval
+
+::: tip
+增强和转换用户输入，使其更有效地执行检索任务，解决格式不正确的查询、query 语义不清晰、或不受支持的语言等。
+:::
+
+1. `QueryAugmenter` 查询增强：使用附加的上下文数据信息增强用户 query，提供大模型回答问题时的必要上下文信息；
+2. `QueryTransformer` 查询改写：因为用户的输入通常是片面的，关键信息较少，不便于大模型理解和回答问题。因此需要使用 prompt 调优手段或者大模型改写用户 query；
+3. `QueryExpander` 查询扩展：将用户 query 扩展为多个语义不同的变体以获得不同视角，有助于检索额外的上下文信息并增加找到相关结果的机会。
+
+### Retrieval
+
+::: tip
+负责查询向量存储等数据系统并检索和用户 query 相关性最高的 Document。
+:::
+
+1. DocumentRetriever：检索器，根据 QueryExpander 使用不同的数据源进行检索，例如 搜索引擎、向量存储、数据库或知识图等；
+2. DocumentJoiner：将从多个 query 和从多个数据源检索到的 Document 合并为一个 Document 集合；
+
+### Post-Retrieval
+
+::: tip
+负责处理检索到的 Document 以获得最佳的输出结果，解决模型中的中间丢失和上下文长度限制等。
+:::
+
+1. DocumentRanker：根据 Document 和用户 query 的相关性对 document 进行排序和排名；
+2. DocumentSelector：用于从检索到的 Document 列表中删除不相关或冗余文档；
+3. DocumentCompressor：用于压缩每个 Document，减少检索到的信息中的噪音和冗余。
+
 
 ## 高级特性
 

@@ -1,6 +1,6 @@
 package io.github.future0923.ai.agent.example.chat.memory.config;
 
-import com.alibaba.cloud.ai.memory.mysql.MysqlChatMemory;
+import com.alibaba.cloud.ai.memory.jdbc.MysqlChatMemory;
 import com.alibaba.cloud.ai.memory.redis.RedisChatMemory;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
@@ -28,7 +28,7 @@ public class ChatMemoryConfig {
      */
     @Bean
     public ChatMemory mysqlChatMemory() {
-        return new MysqlChatMemory("root", "123456", "127.0.0.1:3306");
+        return new MysqlChatMemory("root", "123456", "jdbc:mysql://127.0.0.1:3306/chat_memory");
     }
 
     /**

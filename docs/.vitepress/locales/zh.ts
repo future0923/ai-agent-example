@@ -56,6 +56,10 @@ export const zh = defineConfig({
         base: '/spring/',
         items: sidebarSpring()
       },
+      '/demo': {
+        base: '/demo/',
+        items: sidebarDemo()
+      },
     },
     socialLinks: [
       {icon: 'github', link: 'https://github.com/future0923/ai-agent-example'}
@@ -78,6 +82,11 @@ function nav(): DefaultTheme.NavItem[] {
       text: 'SpringAI',
       link: '/spring/concepts',
       activeMatch: '/spring/'
+    },
+    {
+      text: '示例应用',
+      link: '/demo/web-search',
+      activeMatch: '/demo/'
     },
     {
       text: 'DebugTools',
@@ -122,6 +131,18 @@ function sidebarSpring(): DefaultTheme.SidebarItem[] {
         {text: '索引增强生成(RAG)', link: 'rag'},
         {text: '聊天记忆(Chat Memory)', link: 'chat-memory'},
         {text: '模型上下文协议(MCP)', link: 'mcp'}
+      ]
+    },
+  ]
+}
+
+function sidebarDemo(): DefaultTheme.SidebarItem[] {
+  return [
+    {
+      text: '示例应用',
+      collapsed: false,
+      items: [
+        {text: 'Web Search', link: 'web-search'},
       ]
     },
   ]

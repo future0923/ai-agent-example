@@ -16,6 +16,8 @@ Spring AI 提供了 **DocumentRetriever** 相关的 API 让开发者使用自定
 
 ### DocumentRetriever
 
+DocumentRetriever 文档检索接口。检索器，根据 QueryExpander 使用不同的数据源进行检索，例如 搜索引擎、向量存储、数据库或知识图等；
+
 ```java
 package org.springframework.ai.rag.retrieval.search;
 
@@ -90,6 +92,33 @@ public class Document {
 }
 ```
 
+### DocumentRanker
+
+DocumentRanker 文档重排序接口。根据 Document 和用户 query 的相关性对 Document 进行排序和排名
+
+```java
+package org.springframework.ai.rag.postretrieval.ranking;
+
+import java.util.List;
+import java.util.function.BiFunction;
+
+import org.springframework.ai.document.Document;
+import org.springframework.ai.rag.Query;
+
+public interface DocumentRanker extends BiFunction<Query, List<Document>, List<Document>> {
+
+    /**
+    * 根据 Document 和用户 query 的相关性对 Document 进行排序和排名
+    */
+	List<Document> rank(Query query, List<Document> documents);
+
+	default List<Document> apply(Query query, List<Document> documents) {
+		return rank(query, documents);
+	}
+
+}
+```
+
 ## 示例
 
 演技基于 Spring AI Alibaba 集成的 阿里云百炼平台。DashScopeDocumentRetriever 为百炼实现的 DocumentRetriever。
@@ -150,51 +179,163 @@ DashScopeDocumentRetrieverOptions 文档检索参数选项
 | rerankTopN           | 重新排序前N个，重新排序后返回的前N个最佳结果                      | 5                      |
 
 ```java
-public class DocumentRetrieverTest {
+import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
+import com.alibaba.cloud.ai.dashscope.rag.DashScopeDocumentRetriever;
+import com.alibaba.cloud.ai.dashscope.rag.DashScopeDocumentRetrieverOptions;
+import com.alibaba.cloud.ai.model.RerankModel;
+import io.github.future0923.ai.agent.example.document.retriever.DocumentRetrieverApplicationTest;
+import io.github.future0923.ai.agent.example.document.retriever.document.ranker.DashScopeDocumentRanker;
+import org.junit.jupiter.api.Test;
+import org.springframework.ai.document.Document;
+import org.springframework.ai.rag.Query;
+import org.springframework.ai.rag.retrieval.search.DocumentRetriever;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
-    @Value("${spring.ai.dashscope.api-key}")
-    private String apiKey;
+import java.util.List;
+import java.util.Map;
 
-    @Test
-    public void test() {
-        DocumentRetriever documentRetriever = new DashScopeDocumentRetriever(
-                new DashScopeApi(apiKey),
-                DashScopeDocumentRetrieverOptions.builder()
-                        // 知识库的索引名
-                        .withIndexName("二手房信息")
-                        // 密集相似度前K个 ，指定了在基于向量的（即密集）相似度计算中，返回最相关的前多少个结果。
-                        .withDenseSimilarityTopK(10)
-                        // 稀疏相似度前K个 ， 针对的是基于关键词匹配（即稀疏）的相似度计算。
-                        .withSparseSimilarityTopK(10)
-                        // 启用重写 ，查询重写可以帮助改进或优化用户的查询以获得更好的检索结果。
-                        .withEnableRewrite(true)
-                        // 重写模型名称
-                        .withRewriteModelName("conv-rewrite-qwen-1.8b")
-                        // 启用重新排序 ，是否启用结果重新排序。重新排序可以用来提升检索结果的相关性。
-                        .withEnableReranking(true)
-                        // 重新排序模型名称
-                        .withRerankModelName("gte-rerank-hybrid")
-                        // 重新排序最小分数 ，当进行结果重新排序时，只有得分高于这个阈值的结果才会被保留。
-                        .withRerankMinScore(0.01f)
-                        // 重新排序前N个，重新排序后返回的前N个最佳结果
-                        .withRerankTopN(1)
-                        .build());
-        List<Document> result = documentRetriever.retrieve(
-                Query.builder()
-                        // 检索的内容
-                        .text("我想找一个君悦豪庭B区1室的房源，面积在60平左右")
-                        // 历史消息
-                        .history(List.of())
-                        // 上下文信息
-                        .context(Map.of())
-                        .build());
-        Document document = result.get(0);
-        // 获取元数据信息（提取到的key -> value）
-        Map<String, Object> metadata = document.getMetadata();
-        // MetaData格式化好的数据内容
-        String formattedContent = document.getFormattedContent();
-        // 搜索到的文档内容
-        String text = document.getText();
+public class DocumentRetrieverTest extends DocumentRetrieverApplicationTest {
+
+  @Value("${spring.ai.dashscope.api-key}")
+  private String apiKey;
+
+  @Autowired
+  private RerankModel rerankModel;
+
+  @Test
+  public void test() {
+    DocumentRetriever documentRetriever = new DashScopeDocumentRetriever(
+            new DashScopeApi(apiKey),
+            DashScopeDocumentRetrieverOptions.builder()
+                    // 知识库的索引名
+                    .withIndexName("二手房信息")
+                    // 密集相似度前K个 ，指定了在基于向量的（即密集）相似度计算中，返回最相关的前多少个结果。
+                    .withDenseSimilarityTopK(10)
+                    // 稀疏相似度前K个 ， 针对的是基于关键词匹配（即稀疏）的相似度计算。
+                    .withSparseSimilarityTopK(10)
+                    // 启用重写 ，查询重写可以帮助改进或优化用户的查询以获得更好的检索结果。
+                    .withEnableRewrite(true)
+                    // 重写模型名称
+                    .withRewriteModelName("conv-rewrite-qwen-1.8b")
+                    // 启用重新排序 ，是否启用结果重新排序。重新排序可以用来提升检索结果的相关性。
+                    .withEnableReranking(true)
+                    // 重新排序模型名称
+                    .withRerankModelName("gte-rerank-hybrid")
+                    // 重新排序最小分数 ，当进行结果重新排序时，只有得分高于这个阈值的结果才会被保留。
+                    .withRerankMinScore(0.01f)
+                    // 重新排序前N个，重新排序后返回的前N个最佳结果
+                    .withRerankTopN(1)
+                    .build());
+    Query query = Query.builder()
+            // 检索的内容
+            .text("我想找一个君悦豪庭B区1室的房源，面积在60平左右")
+            // 历史消息
+            .history(List.of())
+            // 上下文信息
+            .context(Map.of())
+            .build();
+    List<Document> result = documentRetriever.retrieve(query);
+    // 重排序
+    DashScopeDocumentRanker dashScopeDocumentRanker = new DashScopeDocumentRanker(rerankModel);
+    result = dashScopeDocumentRanker.rank(query, result);
+    Document document = result.get(0);
+    // 获取元数据信息（提取到的key -> value）
+    Map<String, Object> metadata = document.getMetadata();
+    // MetaData格式化好的数据内容
+    String formattedContent = document.getFormattedContent();
+    // 搜索到的文档内容
+    String text = document.getText();
+  }
+}
+```
+
+DashScopeDocumentRanker 重排序
+
+```java
+
+import com.alibaba.cloud.ai.dashscope.rerank.DashScopeRerankOptions;
+import com.alibaba.cloud.ai.model.RerankModel;
+import com.alibaba.cloud.ai.model.RerankRequest;
+import com.alibaba.cloud.ai.model.RerankResponse;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.ai.document.Document;
+import org.springframework.ai.rag.Query;
+import org.springframework.ai.rag.postretrieval.ranking.DocumentRanker;
+import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+/**
+ * DocumentRanker文档重排序
+ *
+ * @author future0923
+ */
+@Component
+public class DashScopeDocumentRanker implements DocumentRanker {
+
+    private static final Logger logger = LoggerFactory.getLogger(DashScopeDocumentRanker.class);
+
+    private final RerankModel rerankModel;
+
+    public DashScopeDocumentRanker(RerankModel rerankModel) {
+        this.rerankModel = rerankModel;
+    }
+
+    @NotNull
+    @Override
+    public List<Document> rank(@NotNull Query query, @NotNull List<Document> documents) {
+        if (CollectionUtils.isEmpty(documents)) {
+            return new ArrayList<>();
+        }
+        try {
+            List<Document> reorderDocs = new ArrayList<>();
+
+            // The caller controls the number of documents
+            DashScopeRerankOptions rerankOptions = DashScopeRerankOptions.builder()
+                    .withTopN(documents.size())
+                    .build();
+
+            if (StringUtils.hasText(query.text())) {
+                // The assembly parameter calls rerankModel
+                RerankRequest rerankRequest = new RerankRequest(
+                        query.text(),
+                        documents,
+                        rerankOptions
+                );
+                RerankResponse rerankResp = rerankModel.call(rerankRequest);
+
+                rerankResp.getResults().forEach(res -> {
+                    Document outputDocs = res.getOutput();
+
+                    // Find and add to a new list
+                    Optional<Document> foundDocsOptional = documents.stream()
+                            .filter(doc ->
+                            {
+                                // debug rerank output.
+                                logger.debug("DashScopeDocumentRanker#rank() doc id: {}, outputDocs id: {}", doc.getId(), outputDocs.getId());
+                                return Objects.equals(doc.getId(), outputDocs.getId());
+                            })
+                            .findFirst();
+
+                    foundDocsOptional.ifPresent(reorderDocs::add);
+                });
+            }
+
+            return reorderDocs;
+        }
+        catch (Exception e) {
+            // Further processing is done depending on the type of exception
+            logger.error("ranker error", e);
+            return documents;
+        }
     }
 }
 ```

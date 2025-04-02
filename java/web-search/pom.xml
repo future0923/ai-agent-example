@@ -6,10 +6,10 @@
     <parent>
         <groupId>io.github.future0923</groupId>
         <artifactId>ai-agent-example</artifactId>
-        <version>${revision}</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>chat-memory</artifactId>
+    <artifactId>web-search</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -38,17 +38,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.32</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba.cloud.ai</groupId>
-            <artifactId>spring-ai-alibaba-redis-memory</artifactId>
-            <version>${spring-ai-alibaba.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
         </dependency>
 
         <dependency>

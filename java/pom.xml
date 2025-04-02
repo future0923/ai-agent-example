@@ -40,6 +40,8 @@
         <module>rag</module>
         <module>etl-pipeline</module>
         <module>mcp</module>
+        <module>open-manus</module>
+        <module>web-search</module>
     </modules>
 
     <scm>

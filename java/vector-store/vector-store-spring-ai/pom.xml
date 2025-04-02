@@ -14,6 +14,7 @@
     <modules>
         <module>vector-store-spring-ai-elasticsearch</module>
         <module>vector-store-spring-ai-memory</module>
+        <module>vector-store-spring-ai-milvus</module>
     </modules>
 
     <properties>

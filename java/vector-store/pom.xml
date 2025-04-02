@@ -14,7 +14,6 @@
     <modules>
         <module>vector-store-spring-ai</module>
         <module>vector-store-dash-scope</module>
-        <module>vector-store-spring-ai/vector-stroe-spring-ai-milvus</module>
     </modules>
 
     <properties>

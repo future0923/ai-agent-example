@@ -1,29 +1,23 @@
 package io.github.future0923.ai.agent.example.flight.booking.controller;
 
-import com.alibaba.cloud.ai.dashscope.api.DashScopeApi;
-import com.alibaba.cloud.ai.dashscope.rag.DashScopeCloudStore;
-import com.alibaba.cloud.ai.dashscope.rag.DashScopeStoreOptions;
 import io.github.future0923.ai.agent.example.flight.booking.tools.FlightBookingTools;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.TextReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-
-import java.util.List;
 
 /**
  * @author future0923
@@ -33,33 +27,21 @@ public class ChatController {
 
     private final ChatClient chatClient;
 
-    private final ChatClient.Builder builder;
-
     private final FlightBookingTools tools;
 
     private final ChatMemory chatMemory;
 
     private final VectorStore vectorStore;
 
-    private DashScopeCloudStore dashScopeCloudStore;
-
     @Value("classpath:rag/terms-of-service.txt")
     private Resource resource;
 
-    @Value("${spring.ai.dashscope.api-key}")
-    private String apiKey;
-
-    @GetMapping("/add")
-    public void add() {
+    @PostConstruct
+    public void init() {
         vectorStore.add(new TokenTextSplitter().transform(new TextReader(resource).read()));
-        dashScopeCloudStore = new DashScopeCloudStore(
-                new DashScopeApi(apiKey),
-                new DashScopeStoreOptions("二手房信息")
-        );
     }
 
     public ChatController(ChatClient.Builder builder, FlightBookingTools tools, ChatMemory chatMemory, VectorStore vectorStore) {
-        this.builder = builder;
         this.chatClient = builder
                 .defaultSystem("""
                        # 角色
@@ -97,38 +79,7 @@ public class ChatController {
                         SearchRequest.builder()
                                 .query(query)
                         .build()))
-                .advisors(new QuestionAnswerAdvisor(
-                        dashScopeCloudStore,
-                        SearchRequest.builder()
-                                .query(query)
-                                .build()
-                ))
                 .tools(tools)
-                .stream()
-                .content();
-    }
-
-    @GetMapping("/search")
-    public Flux<String> search(@RequestParam("query") String query,
-                               HttpServletResponse response) {
-        response.setCharacterEncoding("UTF-8");
-        ChatClient client = builder.defaultSystem("""
-                        # 角色
-                        您是智能找房小助手，请以友好、乐于助人且愉快的方式来回复帮用户选房。
-                        # 技能
-                        ## 技能1 智能找房
-                        跟据用户要求快捷匹配合适得房源信息，每次都要推荐房源，不要空回答
-                        # 限制
-                        不要回复与找房无关的内容
-                        """)
-                .build();
-        return client.prompt()
-                .user("我要找一个三室一厅的房源")
-                .advisors(new QuestionAnswerAdvisor(
-                        dashScopeCloudStore,
-                        SearchRequest.builder()
-                                .query(query)
-                                .build()))
                 .stream()
                 .content();
     }

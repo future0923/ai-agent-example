@@ -144,6 +144,7 @@ function sidebarDemo(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         {text: 'Web Search', link: 'web-search'},
+        {text: '机票预订助手', link: 'flight-booking'},
       ]
     },
   ]

@@ -27,3 +27,4 @@
 ## 示例应用
 
 - [WebSearch应用搭建](https://ai.debug-tools.cc/demo/web-search.html)
+- [机票预订助手](https://ai.debug-tools.cc/demo/flight-booking.html)

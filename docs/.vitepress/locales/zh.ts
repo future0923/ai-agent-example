@@ -90,7 +90,7 @@ function nav(): DefaultTheme.NavItem[] {
     },
     {
       text: 'DebugTools',
-      link: 'https://debug-tools.cc/zh',
+      link: 'https://debug-tools.cc',
     },
   ]
 }
